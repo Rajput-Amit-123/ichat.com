@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+    <form method="post">
+        <center>
+            <table style="margin: 20px;">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="Username">Your UserName</label>
+                        </td>
+                        <td>
+                            <input type="text" name="Username" id="U_Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="email">Your Mail</label>
+                        </td>
+                        <td>
+                            <input type="email" name="email" id="U_mail">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="password">Password</label>
+                        </td>
+                        <td>
+                            <input type="password" name="password" id="U_pass" required="true">
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <label for="CPassword">Confirm Password</label>
+                        </td>
+                        <td>
+                            <input type="password" name="CPassword" id="U_Cpass" required="true">
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td>
+                            <button type="submit" id="btn">Log In</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           <a href="http://localhost:3000/login">Already have an account?</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </center>
+    </form>
+    <script>
+        // function check(){
+        //     let pass = document.getElementById('U_pass').value;
+        //     let Cpass = document.getElementById('U_Cpass').value;
+        //      if (Cpass != pass) {
+        //         event.preventDefault();
+        //         window.alert("Password and Confirm password should be same");
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

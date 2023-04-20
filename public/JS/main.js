@@ -4,6 +4,8 @@ const inputContainer = document.getElementById('msg');
 const form = document.getElementById('chat-form');
 const join_sound = new Audio('/utils/server_in.wav');
 const leave_sound = new Audio('/utils/server_out.wav');
+const msg_sound = new Audio('/utils/notification.wav');
+
 const { username, room } = Qs.parse(window.location.search, {
     ignoreQueryPrefix: true
 });
@@ -19,7 +21,6 @@ inputContainer.focus
 });
 
 // append function 
-
 const append_Msg = (username,message,time,event) => {
     const Msg = document.createElement("div");
     Msg.innerHTML = ` <div class = "message" draggable="true">
@@ -35,19 +36,27 @@ const append_Msg = (username,message,time,event) => {
     else if(event == 'leave'){
         leave_sound.play();
     }
+    else if(event == 'receive'){
+        msg_sound.play();
+    }
     messageContainer.scrollTop = messageContainer.scrollHeight;
 }
-
+//loading old message
 socket.on('history_message', (result) => {
     printOutOldMessage(result);
 });
-socket.emit('userJoin',({username,room}))
+
+//fired when new user joined , taking perameter form query string(URL)
+socket.emit('userJoin',({username,room}));
+
+//Greating message from BOT
 socket.emit('new-user-found',"Welcome to IChat");
+
 socket.on('user-joined',(data)=>{
     append_Msg(`${data.Name}`,`${data.message}`,`${data.time}`, null);
 })
 socket.on('Onsend', (data) => {
-    append_Msg("You", `${data.message}`, `${data.time}`,null);
+    append_Msg("You", `${data.message}`, `${data.time}`,'Onsend');
 });
 socket.on('JOIN_message',(data)=>{
     append_Msg(data.BotName, `${data.message}`, data.time, 'JOIN_message');
@@ -56,7 +65,7 @@ socket.on('leave', (data) => {
     append_Msg(data.BotName, `${data.message}`, data.time,null);
 });
 socket.on('receive',(data)=>{
-    append_Msg(`${data.Name}`, `${data.message}`,`${data.time}`,null);
+    append_Msg(`${data.Name}`, `${data.message}`,`${data.time}`,'receive');
 });
  socket.on('leave',(data)=>{
      append_Msg(`${data.BotName}`,`${data.message}`,`${data.time}`,'leave');
@@ -135,6 +144,4 @@ function drop(e) {
 
     const id = e.dataTransfer.getData('text/HTML');
     const draggable = document.getElementById(id);
-    console.log(id);
-
 }
